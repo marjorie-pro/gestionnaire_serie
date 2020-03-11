@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Login from './Login';
 import {
     BrowserRouter as Router,
     Switch,
@@ -61,21 +62,6 @@ function Homepage() {
     );
   }
 
-  function Login() {
-    return (
-      <div>
-        <h2>Login</h2>
-      </div>
-    );
-  }
-
-  // function Series() {
-  //   return (
-  //     <div>
-  //       <h2>Séries</h2>
-  //     </div>
-  //   );
-  // }
 
   function Amis() {
     return (
