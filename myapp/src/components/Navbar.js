@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Login from './Login';
 import {
     BrowserRouter as Router,
     Switch,
@@ -55,14 +56,6 @@ function Homepage() {
     return (
       <div>
         <h2>Homepage</h2>
-      </div>
-    );
-  }
-
-  function Login() {
-    return (
-      <div>
-        <h2>Login</h2>
       </div>
     );
   }

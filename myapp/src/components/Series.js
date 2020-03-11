@@ -21,7 +21,7 @@ class Series extends React.Component{
             this.setState({
                 items: data.shows
             })
-            console.log(data.shows)
+            
         });
     }
 
