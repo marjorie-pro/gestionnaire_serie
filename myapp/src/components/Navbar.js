@@ -21,7 +21,7 @@ class Navbar extends Component {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="nav navbar-nav ml-auto">
                     <li className="nav-item">
-                    <Link to="/login" className="nav-link">Se connecter<span className="sr-only">(current)</span></Link>
+                    <Link to="/login" className="nav-link">Se connecte<span className="sr-only">(current)</span></Link>
                     </li>
                     <li className="nav-item">
                     <Link to="/series" className="nav-link">Séries</Link>
