@@ -45,3 +45,15 @@ h3 {
     transform: rotate(360deg);
   }
 }
+
+.img_series{
+  width:100%;
+}
+.thumbnail{
+  border: 1px solid grey;
+  padding:2%;
+}
+
+.col-md-4{
+  margin-bottom: 5%;
+}
