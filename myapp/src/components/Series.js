@@ -1,11 +1,13 @@
 import React from 'react';
+import Modal from './Modal';
 
 class Series extends React.Component{
 
     constructor(props) {
         super(props);
         this.state = {
-        items: []
+            show: false,
+            items: []
         };
         this.handleButtonPress = this.handleButtonPress.bind(this);
         this.handleButtonRelease = this.handleButtonRelease.bind(this);
@@ -33,10 +35,17 @@ class Series extends React.Component{
         clearTimeout(this.buttonPressTimer);
     }
 
+    showModal = () => {
+        this.setState({
+          ... this.state,
+          show: !this.state.show
+        });
+
+      }
+
     render() {
         return (    
             <div>
-
                 <div className="container">
                     <div className="row">
                         {this.state.items.map((listitem, index)=>(
@@ -59,11 +68,16 @@ class Series extends React.Component{
                                             onMouseLeave={this.handleButtonRelease}>
                                             Infos
                                             </button>
+                        <button className="button" value="show modal" onClick={this.showModal} >more</button>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                         ))}
+                    <Modal show={this.state.show} onClose={this.showModal}>
+                        content
+                    </Modal>
                     </div> 
                 </div>
             </div>
