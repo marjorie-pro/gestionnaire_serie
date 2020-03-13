@@ -40,7 +40,7 @@ class Series extends React.Component {
                     // id: this.state.id
                 })
                 console.log(data.show);
-                console.log(data.show.title);
+                console.log(data.show.notes.mean);
             });
         this.showModal();
     }
@@ -59,15 +59,6 @@ class Series extends React.Component {
     //         passProps: { item }
     //     });
     // }
-
-
-    showModal = () => {
-        this.setState({
-            ... this.state,
-            show: !this.state.show
-        });
-
-    }
 
     render() {
         const modalItems = this.state.modalItems;
@@ -96,7 +87,11 @@ class Series extends React.Component {
                                     <Modal show={this.state.show} onClose={this.showModal}>
                                         <p>{modalItems.title}</p>
                                         {/* <img className="img_series" src={modalItems.images.banner} alt="détail séries"></img> */}
-                                        <p>nombre de personnage : {modalItems.characters}</p>
+                                        <p>Saison(s) : {modalItems.seasons}</p>
+                                        <p>Episode(s) : {modalItems.episodes}</p>
+                                        <p>Durée d'un épisode : {modalItems.length}</p>
+                                        {/* <p>Note : {item.notes.mean}</p> */}
+                                        <p>{modalItems.description}</p>
                                     </Modal>
                                     {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                                     <div id="myModal" role="dialog" className="hide">

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 class Login extends React.Component {
@@ -63,9 +63,9 @@ class Login extends React.Component {
                     <h2>Se connecter</h2>
 
                     <form onSubmit={this.handleSubmit}>
-                        <label for="login">Identifiant</label><br></br>
+                        <label htmlFor="login">Identifiant</label><br></br>
                         <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
-                        <label for="password">Mot de Passe</label><br></br>
+                        <label htmlFor="password">Mot de Passe</label><br></br>
                         <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
                         <input type="submit"></input><br></br>
                         <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
