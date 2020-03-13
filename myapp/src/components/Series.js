@@ -1,5 +1,5 @@
 import React from 'react';
-// import Modal from './Modal';
+import Modal from './Modal';
 
 class Series extends React.Component {
     constructor(props) {
@@ -7,14 +7,14 @@ class Series extends React.Component {
         this.state = {
             items: [],
             show: false,
-            modalItems: [],
-            id: '481'
+            modalItems: []
+            // id: '481'
         };
         this.detail = this.detail.bind(this);
     }
 
     componentDidMount() {
-        fetch('https://api.betaseries.com/shows/list?key=f10eeafae2e6&order=popularity', {
+        fetch('https://api.betaseries.com/shows/list?key=f10eeafae2e6&order=popularity&limit=9', {
             method: 'get'
         })
             .then(response => response.json())
@@ -27,15 +27,10 @@ class Series extends React.Component {
             });
     }
 
-    showModal = () => {
-        this.setState({
-            ...this.state,
-            show: !this.state.show
-        });
-    }
 
-    detail() {
-        fetch('https://api.betaseries.com/shows/display?key=f10eeafae2e6&id=' + this.state.id, {
+
+    detail(id) {
+        fetch('https://api.betaseries.com/shows/display?key=f10eeafae2e6&id=' + id, {
             method: 'get'
         })
             .then(response => response.json())
@@ -44,11 +39,18 @@ class Series extends React.Component {
                     modalItems: data.show
                     // id: this.state.id
                 })
-                console.log(data.show.id);
+                console.log(data.show);
                 console.log(data.show.title);
             });
+        this.showModal();
     }
 
+    showModal = () => {
+        this.setState({
+            ...this.state,
+            show: !this.state.show
+        });
+    }
     // showSeriesDetail(item) {
 
     //     this.setState({
@@ -68,7 +70,7 @@ class Series extends React.Component {
                 <div className="container">
                     <div className="row">
                         {this.state.items.map((item, index) => (
-                            <div key={index} className="col-md-4">
+                            <div key={index} id={item.id} className="col-md-4">
                                 <div>
                                     <div className="thumbnail">
                                         <img className="img_series" src={item.images.show} alt="visuel séries"></img>
@@ -80,13 +82,16 @@ class Series extends React.Component {
                                                 data-type="show"
                                                 data-show="Desperate Housewives"
                                             >+ Ajouter la série</a>
-                                            <p>{this.state.title}</p>
+                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail</button>
                                         </div>
                                     </div>
-                                    {/* <button className="btn" value="show modal" onClick={this.showModal}>more</button> */}
-                                    {/* <Modal show={this.state.show} onClose={this.showModal}> */}
-                                    {/* </Modal> */}
+                                    <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button>
 
+                                    <Modal show={this.state.show} onClose={this.showModal}>
+                                        <p>{modalItems.title}</p>
+                                        {/* <img className="img_series" src={modalItems.images.banner} alt="détail séries"></img> */}
+                                        <p>nombre de personnage : {modalItems.characters}</p>
+                                    </Modal>
                                     {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                                     <div id="myModal" role="dialog" className="hide">
                                         <div className="modal-dialog">
@@ -108,10 +113,11 @@ class Series extends React.Component {
                                     </div> */}
 
                                 </div>
-                                <button className='btn' onClick={this.detail}>detail</button>
+
                             </div>
                         ))}
                     </div>
+
                 </div>
 
                 {/* {this.state.modalItems.map((modalItem, index) => (

@@ -1,5 +1,6 @@
 body{
-  background-color: rgb(179, 172, 156);
+  background-color:black;
+  color:whitesmoke;
 }
 .App {
   text-align: center;
@@ -49,7 +50,7 @@ h3 {
 /* Affichage series */
 .img_series{
   width:100%;
-  height:100%;
+  height:auto;
 }
 .thumbnail{
   border: 1px solid grey;
@@ -63,3 +64,27 @@ h3 {
 /* .hide{
   visibility:hidden;
 } */
+
+/* The Modal (background) */
+.modal-prev {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100vh; /* Full height */
+   /* Enable scroll if needed */
+  background-color: rgba(63, 44, 72, 0.411);
+  /* filter: blur(8px); */
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color:black;
+  margin: 2% auto auto auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 90%; /* Could be more or less, depending on screen size */
+  height: 90%;
+}
