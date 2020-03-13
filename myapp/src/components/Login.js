@@ -15,7 +15,6 @@ class Login extends React.Component{
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.sendData = this.sendData.bind(this);
     }
 
     componentDidMount() { 
@@ -57,10 +56,6 @@ class Login extends React.Component{
         });
     }
 
-     sendData = () => {
-        
-    }
-
     render() {
         return (
             <div>
@@ -72,7 +67,7 @@ class Login extends React.Component{
                     <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
                     <label for="password">Mot de Passe</label><br></br>
                     <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
-                    <input type="submit" onClick={this.sendData} ></input><br></br>
+                    <input type="submit"></input><br></br>
                     <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
                     </form> 
 
