@@ -70,6 +70,7 @@ class Series extends React.Component {
     }
 
     render() {
+        const modalItems = this.state.modalItems;
         return (
             <div>
                 <div className="container">
@@ -121,9 +122,9 @@ class Series extends React.Component {
 
                             </div>
                         ))}
-                        <Modal show={this.state.show} onClose={this.showModal}>
+                        {/* <Modal show={this.state.show} onClose={this.showModal}>
                             content
-                    </Modal>
+                    </Modal> */}
                     </div>
                 </div>
 
