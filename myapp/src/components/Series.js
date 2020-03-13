@@ -5,15 +5,10 @@ class Series extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-<<<<<<< HEAD
-            show: false,
-            items: []
-=======
             items: [],
             show: false,
             modalItems: []
             // id: '481'
->>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
         };
         this.detail = this.detail.bind(this);
     }
@@ -68,23 +63,15 @@ class Series extends React.Component {
 
     showModal = () => {
         this.setState({
-          ... this.state,
-          show: !this.state.show
+            ... this.state,
+            show: !this.state.show
         });
 
-      }
+    }
 
     render() {
-<<<<<<< HEAD
-        return (    
-            <div>
-=======
-        const modalItems = this.state.modalItems;
-
         return (
             <div>
-                <div>{modalItems.title}</div>
->>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
                 <div className="container">
                     <div className="row">
                         {this.state.items.map((item, index) => (
@@ -100,21 +87,8 @@ class Series extends React.Component {
                                                 data-type="show"
                                                 data-show="Desperate Housewives"
                                             >+ Ajouter la série</a>
-<<<<<<< HEAD
-                                            <button 
-                                            onTouchStart={this.handleButtonPress} 
-                                            onTouchEnd={this.handleButtonRelease} 
-                                            onMouseDown={this.handleButtonPress} 
-                                            onMouseUp={this.handleButtonRelease} 
-                                            onMouseLeave={this.handleButtonRelease}>
-                                            Infos
-                                            </button>
-                        <button className="button" value="show modal" onClick={this.showModal} >more</button>
-
-=======
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail</button>
                                         </div>
->>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
                                     </div>
                                     <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button>
 
@@ -147,15 +121,10 @@ class Series extends React.Component {
 
                             </div>
                         ))}
-<<<<<<< HEAD
-                    <Modal show={this.state.show} onClose={this.showModal}>
-                        content
+                        <Modal show={this.state.show} onClose={this.showModal}>
+                            content
                     </Modal>
-                    </div> 
-=======
                     </div>
-
->>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
                 </div>
 
                 {/* {this.state.modalItems.map((modalItem, index) => (
