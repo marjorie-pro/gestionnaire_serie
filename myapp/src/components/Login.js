@@ -1,5 +1,11 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 
+=======
+import React from 'react';
+// import { Alert } from 'react-bootstrap';
+// import { AlertHeading } from 'react-bootstrap/Alert';
+>>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
 
 class Login extends React.Component{
 

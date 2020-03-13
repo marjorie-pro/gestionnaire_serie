@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import  { Redirect } from 'react-router-dom'
 import Login from './Login';
+<<<<<<< HEAD
 
 import {
     BrowserRouter as Router,
@@ -8,8 +9,11 @@ import {
     Route,
     Link
   } from "react-router-dom";
+=======
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+>>>>>>> e374e14c006f33f40e568403f9a3f4577f6e265f
 
-import Series from './Series.js'
+import Series from './Series'
 
 class Navbar extends Component {
   constructor(props) {
