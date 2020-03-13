@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import { AlertHeading } from 'react-bootstrap/Alert';
+import React from 'react';
+// import { Alert } from 'react-bootstrap';
+// import { AlertHeading } from 'react-bootstrap/Alert';
 
 class Login extends React.Component{
 

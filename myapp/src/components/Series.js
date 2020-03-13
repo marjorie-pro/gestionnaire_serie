@@ -1,71 +1,127 @@
 import React from 'react';
+// import Modal from './Modal';
 
-class Series extends React.Component{
-
+class Series extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        items: []
+            items: [],
+            show: false,
+            modalItems: [],
+            id: '481'
         };
-        this.handleButtonPress = this.handleButtonPress.bind(this);
-        this.handleButtonRelease = this.handleButtonRelease.bind(this);
+        this.detail = this.detail.bind(this);
     }
 
-    
-    componentDidMount() { 
-        fetch('https://api.betaseries.com/shows/list?key=f10eeafae2e6&order=popularity',{
-            method:'get'
+    componentDidMount() {
+        fetch('https://api.betaseries.com/shows/list?key=f10eeafae2e6&order=popularity', {
+            method: 'get'
         })
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                items: data.shows
-            })
-            
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    items: data.shows,
+                    id: this.state.id
+                })
+                console.log(data.shows);
+            });
+    }
+
+    showModal = () => {
+        this.setState({
+            ...this.state,
+            show: !this.state.show
         });
     }
-    
-    handleButtonPress() {
-        this.buttonPressTimer = setTimeout(() => alert('long press activated'), 1500);
+
+    detail() {
+        fetch('https://api.betaseries.com/shows/display?key=f10eeafae2e6&id=' + this.state.id, {
+            method: 'get'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    modalItems: data.show
+                    // id: this.state.id
+                })
+                console.log(data.show.id);
+                console.log(data.show.title);
+            });
     }
-    
-    handleButtonRelease() {
-        clearTimeout(this.buttonPressTimer);
-    }
+
+    // showSeriesDetail(item) {
+
+    //     this.setState({
+    //         title: item.title,
+    //         component: Modal,
+    //         passProps: { item }
+    //     });
+    // }
+
 
     render() {
-        return (    
-            <div>
+        const modalItems = this.state.modalItems;
 
+        return (
+            <div>
+                <div>{modalItems.title}</div>
                 <div className="container">
                     <div className="row">
-                        {this.state.items.map((listitem, index)=>(
-                        <div className="col-md-4">
-                            <div className="thumbnail">
-                                <div key={index}>
-                                    <img className="img_series" src={listitem.images.show} alt="visuel séries"></img>
-                                    <div className="caption">
-                                        <p>{listitem.title}</p>
-                                        <script src="https://www.betaseries.com/js/button.js" async></script>
-                                        <a href="https://www.betaseries.com" className="btn btn-primary"
-                                            data-type="show"
-                                            data-show="Desperate Housewives"
+                        {this.state.items.map((item, index) => (
+                            <div key={index} className="col-md-4">
+                                <div>
+                                    <div className="thumbnail">
+                                        <img className="img_series" src={item.images.show} alt="visuel séries"></img>
+                                        <div className="caption">
+                                            <p>id : {item.id}</p>
+                                            <p>{item.title}</p>
+                                            <script src="https://www.betaseries.com/js/button.js" async></script>
+                                            <a href="https://www.betaseries.com" className="btn btn-primary"
+                                                data-type="show"
+                                                data-show="Desperate Housewives"
                                             >+ Ajouter la série</a>
-                                            <button 
-                                            onTouchStart={this.handleButtonPress} 
-                                            onTouchEnd={this.handleButtonRelease} 
-                                            onMouseDown={this.handleButtonPress} 
-                                            onMouseUp={this.handleButtonRelease} 
-                                            onMouseLeave={this.handleButtonRelease}>
-                                            Infos
-                                            </button>
+                                            <p>{this.state.title}</p>
+                                        </div>
                                     </div>
+                                    {/* <button className="btn" value="show modal" onClick={this.showModal}>more</button> */}
+                                    {/* <Modal show={this.state.show} onClose={this.showModal}> */}
+                                    {/* </Modal> */}
+
+                                    {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+                                    <div id="myModal" role="dialog" className="hide">
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                    <h4 className="modal-title">Modal Header</h4>
+                                                </div>
+                                                <div className="modal-body">
+                                                    {item.title}
+                                                    <p>Some text in the modal.</p>
+                                                    <div>{modalItems.title}</div>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> */}
+
                                 </div>
+                                <button className='btn' onClick={this.detail}>detail</button>
                             </div>
-                        </div>
                         ))}
-                    </div> 
+                    </div>
                 </div>
+
+                {/* {this.state.modalItems.map((modalItem, index) => (
+                    <div key={index}>
+                        {modalItem.title}
+                    </div>
+                ))} */}
+
+
+
             </div>
         );
     }

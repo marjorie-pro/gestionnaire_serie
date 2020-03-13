@@ -46,8 +46,10 @@ h3 {
   }
 }
 
+/* Affichage series */
 .img_series{
   width:100%;
+  height:100%;
 }
 .thumbnail{
   border: 1px solid grey;
@@ -57,3 +59,7 @@ h3 {
 .col-md-4{
   margin-bottom: 5%;
 }
+
+/* .hide{
+  visibility:hidden;
+} */

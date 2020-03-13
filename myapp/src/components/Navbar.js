@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import Login from './Login';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
-import Series from './Series.js'
+import Series from './Series'
 
 class Navbar extends Component {
     render(){
