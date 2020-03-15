@@ -13,10 +13,10 @@ class Modal extends Component {
                 <div id="id01" className="modal-prev">
                     <span onClick={this.props.onClose} className="close" title="Close Modal"></span>
                     <form className="modal-content">
+                        <button className="btn btn-primary float-right" onClick={(e) => { this.onClose(e) }}>close</button>
                         <div className="container">
-                            <h1>My first modal</h1>
+
                             <div>{this.props.children}</div>
-                            <button className="btn btn-primary" onClick={(e) => { this.onClose(e) }}>close</button>
                         </div>
                     </form>
                 </div>

@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import Modal from './Modal';
 
@@ -7,7 +9,8 @@ class Series extends React.Component {
         this.state = {
             items: [],
             show: false,
-            modalItems: []
+            modalItems: [],
+            pictures: [],
             // id: '481'
         };
         this.detail = this.detail.bind(this);
@@ -27,8 +30,6 @@ class Series extends React.Component {
             });
     }
 
-
-
     detail(id) {
         fetch('https://api.betaseries.com/shows/display?key=f10eeafae2e6&id=' + id, {
             method: 'get'
@@ -36,11 +37,30 @@ class Series extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    modalItems: data.show
+                    modalItems: data.show,
                     // id: this.state.id
                 })
-                console.log(data.show);
-                console.log(data.show.title);
+                console.log(data);
+                console.log(data.show.genres.Comedy);
+            });
+        this.image(id);
+    }
+
+    image(id) {
+        fetch('https://api.betaseries.com/pictures/shows?key=f10eeafae2e6&id=' + id, {
+            method: 'get',
+            headers: {
+                "Content-Type": "image/jpeg"
+            }
+        })
+
+            .then(data => {
+                console.log(data);
+                this.setState({
+                    pictures: data
+                    // id: this.state.id
+                })
+                console.log(data.url);
             });
         this.showModal();
     }
@@ -51,49 +71,43 @@ class Series extends React.Component {
             show: !this.state.show
         });
     }
-    // showSeriesDetail(item) {
-
-    //     this.setState({
-    //         title: item.title,
-    //         component: Modal,
-    //         passProps: { item }
-    //     });
-    // }
-
 
     render() {
         const modalItems = this.state.modalItems;
-
+        const pictures = this.state.pictures;
         return (
             <div>
-                <div>{modalItems.title}</div>
                 <div className="container">
                     <div className="row">
                         {this.state.items.map((item, index) => (
-                            <div key={index} id={item.id} className="col-md-4">
+                            <div key={index} className="col-md-4">
                                 <div>
                                     <div className="thumbnail">
                                         <img className="img_series" src={item.images.show} alt="visuel séries"></img>
                                         <div className="caption">
-                                            <p>id : {item.id}</p>
                                             <p>{item.title}</p>
+                                            <p><i className="fas fa-star"></i> Note : {item.notes.mean.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                                             <script src="https://www.betaseries.com/js/button.js" async></script>
                                             <a href="https://www.betaseries.com" className="btn btn-primary"
                                                 data-type="show"
-                                                data-show="Desperate Housewives"
-                                            >+ Ajouter la série</a>
-                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail</button>
+                                                data-show={item.title}
+                                            >Ajouter la série</a>
+                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
                                         </div>
                                     </div>
-                                    <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button>
+                                    {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
 
                                     <Modal show={this.state.show} onClose={this.showModal}>
-                                        <p>{modalItems.title}</p>
-                                        {/* <img className="img_series" src={modalItems.images.banner} alt="détail séries"></img> */}
-                                        {/* nombre de personnage : {modalItems.genres.Adventure} */}
+                                        <h1>{modalItems.title}</h1>
+                                        <img className="img_serie" src={pictures.url} alt="détail séries"></img>
+                                        <p>Saison(s) : {modalItems.seasons}</p>
+                                        <p>Episode(s) : {modalItems.episodes}</p>
+                                        <p>Durée d'un épisode : {modalItems.length} min</p>
+                                        <p>{modalItems.description}</p>
+                                        <button className="btn btn-primary">Archiver la série</button>
                                     </Modal>
                                     {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                                    <div id="myModal" role="dialog" className="hide">
+                                    <div id="myModal" role="dialog" className="">
                                         <div className="modal-dialog">
                                             <div className="modal-content">
                                                 <div className="modal-header">
@@ -116,19 +130,12 @@ class Series extends React.Component {
 
                             </div>
                         ))}
-                    </div>
 
+                    </div>
                 </div>
 
-                {/* {this.state.modalItems.map((modalItem, index) => (
-                    <div key={index}>
-                        {modalItem.title}
-                    </div>
-                ))} */}
 
-
-
-            </div>
+            </div >
         );
     }
 }
