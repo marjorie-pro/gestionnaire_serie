@@ -90,7 +90,7 @@ class Series extends React.Component {
                                     <Modal show={this.state.show} onClose={this.showModal}>
                                         <p>{modalItems.title}</p>
                                         {/* <img className="img_series" src={modalItems.images.banner} alt="détail séries"></img> */}
-                                        <p>nombre de personnage : {modalItems.characters}</p>
+                                        {/* nombre de personnage : {modalItems.genres.Adventure} */}
                                     </Modal>
                                     {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
                                     <div id="myModal" role="dialog" className="hide">
