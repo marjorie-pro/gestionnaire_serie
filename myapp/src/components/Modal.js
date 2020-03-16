@@ -10,8 +10,8 @@ export default class Modal extends React.Component {
         }
         return (
             <div>
-                <div id="id01" class="modal">
-                    <span onClick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal"></span>
+                <div id="id01" className="modal-prev">
+                    <span onClick={this.props.onClose} className="close" title="Close Modal"></span>
                     <form className="modal-content">
                     <div className="container">
                         <h1>My first modal</h1>

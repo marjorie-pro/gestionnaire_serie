@@ -49,9 +49,9 @@ class Series extends React.Component{
                 <div className="container">
                     <div className="row">
                         {this.state.items.map((listitem, index)=>(
-                        <div className="col-md-4">
-                            <div className="thumbnail">
-                                <div key={index}>
+                        <div key={index} className="col-md-4">
+                            <div>
+                                <div className="thumbnail">
                                     <img className="img_series" src={listitem.images.show} alt="visuel séries"></img>
                                     <div className="caption">
                                         <p>{listitem.title}</p>
