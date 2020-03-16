@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Modal from './Modal';
 
@@ -79,19 +77,20 @@ class Series extends React.Component {
             <div>
                 <div className="container">
                     <div className="row">
-                        {this.state.items.map((listitem, index)=>(
-                        <div key={index} className="col-md-4">
-                            <div>
-                                <div className="thumbnail">
-                                    <img className="img_series" src={listitem.images.show} alt="visuel séries"></img>
-                                    <div className="caption">
-                                        <p>{listitem.title}</p>
-                                        <script src="https://www.betaseries.com/js/button.js" async></script>
-                                        <a href="https://www.betaseries.com" className="btn btn-primary"
-                                            data-type="show"
-                                            data-show="Desperate Housewives">
-                                            Ajouter la série </a>
-                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail</button>
+                        {this.state.items.map((item, index) => (
+                            <div key={index} className="col-md-4">
+                                <div>
+                                    <div className="thumbnail">
+                                        <img className="img_series" src={item.images.show} alt="visuel séries"></img>
+                                        <div className="caption">
+                                            <p>{item.title}</p>
+                                            <p><i className="fas fa-star"></i> Note : {item.notes.mean.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                                            <script src="https://www.betaseries.com/js/button.js" async></script>
+                                            <a href="https://www.betaseries.com" className="btn btn-primary"
+                                                data-type="show"
+                                                data-show={item.title}
+                                            >Ajouter la série</a>
+                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
                                         </div>
                                     </div>
                                     {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
