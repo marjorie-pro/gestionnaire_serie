@@ -4,6 +4,7 @@ import Login from './Login';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Series from './Series'
+import Friends from './Friends'
 
 class Navbar extends Component {
   constructor(props) {
@@ -62,27 +63,28 @@ class Navbar extends Component {
             <Route exact path="/">
               <Homepage />
             </Route>
+
             <Route path="/login">
               {isLoggedIn ?
                 <Redirect to='/series' /> :
                 <Login parentCallBack={this.callbackFunction} />
               }
-
             </Route>
+
             <Route path="/series">
               {isLoggedIn ?
                 <Series /> :
                 <Redirect to='/login' />
               }
-
             </Route>
+
             <Route path="/amis">
               {isLoggedIn ?
-                <Amis /> :
+                <Friends token={this.state.token} /> :
                 <Redirect to='/login' />
               }
-
             </Route>
+
           </Switch>
         </div>
       </Router>

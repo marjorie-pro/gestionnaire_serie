@@ -24,7 +24,7 @@ class Series extends React.Component {
                     items: data.shows,
                     id: this.state.id
                 })
-                console.log(data.shows);
+   
             });
     }
 
@@ -38,8 +38,7 @@ class Series extends React.Component {
                     modalItems: data.show,
                     // id: this.state.id
                 })
-                console.log(data);
-                console.log(data.show.genres.Comedy);
+
             });
         this.image(id);
     }
@@ -53,12 +52,12 @@ class Series extends React.Component {
         })
 
             .then(data => {
-                console.log(data);
+               
                 this.setState({
                     pictures: data
                     // id: this.state.id
                 })
-                console.log(data.url);
+               
             });
         this.showModal();
     }

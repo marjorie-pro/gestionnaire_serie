@@ -7,53 +7,40 @@ class Friends extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-
+            friends: []
         };
-
+        this.searchFriends = this.searchFriends.bind(this)
       }
 
     componentDidMount() { 
 
     }
 
-    handleChangeLogin(event) {
+    searchFriends(event) {
         event.preventDefault();
-        this.setState({
-            login: event.target.value
-        });
+        fetch('https://api.betaseries.com/friends/find?key=f10eeafae2e6&token=94a283377170&type=emails&emails=marjorie.pezeron@numericable.fr', {
+            method: 'get'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    friends: data
+
+                })
+                console.log("Friends " + data);
+            });
     }
-    handleChangePassword(event) {
-        
-        this.setState({
-            password: event.target.value
-        });
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        var md5 = require('md5');
-
-        var myPassword = md5(this.state.password)
-
-        console.log(myPassword);
-
-        fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login=' +this.state.login+'&password=' + myPassword,{
-            method:'post'
-            
-          })
-          .then(response => response.json())
-          .then(data => {
-              this.setState({
-                  token: data.token
-              })
-              console.log(this.state.token);
-          });
-      }
 
     render() {
         return (
             <div>
-               
+                <h2>Votre liste d'amis</h2>
+                <ul>
+                    <li>list friends here</li>
+                </ul><br></br>
+                <h2>Ajouter des amis</h2>
+                <label htmlFor="friend">Ajouter un(e) ami(e)</label><br></br>
+                    <input type="text" placeholder="email" id="friend" value={this.friend} onChange={this.searchFriends}></input><br></br><br></br>
             </div>
         );
     }

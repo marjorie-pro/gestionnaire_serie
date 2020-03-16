@@ -25,7 +25,7 @@ class Login extends React.Component {
         this.setState({
             login: event.target.value
         });
-        console.log("password is " + this.state.password)
+     
     }
     handleChangePassword(event) {
 
@@ -40,8 +40,6 @@ class Login extends React.Component {
 
         var myPassword = md5(this.state.password)
 
-        console.log(myPassword);
-
         fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login=' + this.state.login + '&password=' + myPassword, {
             method: 'post'
         })
@@ -51,7 +49,7 @@ class Login extends React.Component {
                     token: data.token
 
                 })
-                console.log(this.state.token);
+                
                 this.props.parentCallBack(data.token)
             });
     }
