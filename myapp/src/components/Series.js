@@ -76,8 +76,8 @@ class Series extends React.Component {
                                         <script src="https://www.betaseries.com/js/button.js" async></script>
                                         <a href="https://www.betaseries.com" className="btn btn-primary"
                                             data-type="show"
-                                            data-show="Desperate Housewives"
-                                            >+ Ajouter la série</a>
+                                            data-show="Desperate Housewives">
+                                            Ajouter la série </a>
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail</button>
                                         </div>
                                     </div>

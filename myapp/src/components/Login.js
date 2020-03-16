@@ -63,7 +63,6 @@ class Login extends React.Component {
                     <h2>Se connecter</h2>
 
                     <form onSubmit={this.handleSubmit}>
-<<<<<<< HEAD
                     <label htmlFor="login">Identifiant</label><br></br>
                     <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
                     <label htmlFor="password">Mot de Passe</label><br></br>
@@ -71,15 +70,6 @@ class Login extends React.Component {
                     <input type="submit"></input><br></br>
                     <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
                     </form> 
-=======
-                        <label htmlFor="login">Identifiant</label><br></br>
-                        <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
-                        <label htmlFor="password">Mot de Passe</label><br></br>
-                        <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
-                        <input type="submit"></input><br></br>
-                        <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
-                    </form>
->>>>>>> e110ed53113484b1be6de5504db45964eabcefeb
 
                 </div>
             </div>
