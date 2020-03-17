@@ -87,12 +87,21 @@ h3 {
   border: 1px solid #888;
   width: 90%; /* Could be more or less, depending on screen size */
   height: 90%;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  hyphens: auto;
+
 }
 
 .img_serie{
   width:20%;
   height:auto;
 }
+
+.modal-content{
+  width: 300%;
+  margin-right: 100%;
+  margin-left: -100%;
+}
+/* 
+.modal-dialog{
+  width: 1250px;
+  margin: auto;
+} */

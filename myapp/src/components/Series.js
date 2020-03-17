@@ -12,7 +12,9 @@ class Series extends React.Component {
             modalItems: [],
             pictures: [],
             episodes: [],
-            show2: false
+            show2: false,
+            // saisons: [],
+            // episodesDetail: []
             // id: '481'
         };
         this.detail = this.detail.bind(this);
@@ -82,15 +84,43 @@ class Series extends React.Component {
                 })
                 console.log(data);
             });
-        this.showModal2();
     }
 
-    showModal2 = () => {
-        this.setState({
-            ...this.state,
-            show2: !this.state.show
-        });
-    }
+    // episodeDetail(id) {
+    //     fetch(' https://api.betaseries.com/shows/episodes?key=f10eeafae2e6&id=' + id, {
+    //         method: 'get'
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 episodes: data.episodes
+
+    //             })
+    //             console.log(data);
+    //         });
+
+    // }
+
+    // saison(id) {
+    //     fetch(' https://api.betaseries.com/shows/seasons?key=f10eeafae2e6&id=' + id, {
+    //         method: 'get'
+    //     })
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             this.setState({
+    //                 saisons: data
+    //                 // id: this.state.id
+    //             })
+    //             console.log(data);
+    //         });
+    // }
+
+    // showModal2 = () => {
+    //     this.setState({
+    //         ...this.state,
+    //         show2: !this.state.show
+    //     });
+    // }
 
 
     render() {
@@ -120,7 +150,8 @@ class Series extends React.Component {
                                                 data-show={item.title}
                                             >Ajouter la série</a>
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
-                                            <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button>
+                                            {/* <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button> */}
+                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal" onClick={() => this.episode(item.id)}>épisodes</button>
                                         </div>
                                     </div>
                                     {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
@@ -134,34 +165,35 @@ class Series extends React.Component {
                                         <p>{modalItems.description}</p>
                                         <button className="btn btn-primary">Archiver la série</button>
                                     </Modal>
-                                    <Modal show={this.state.show2} onClose={this.showModal2}>
-                                        {this.state.episodes.map((item, index) => (
-                                            <div key={index} className="test">
-                                                {item.code}{item.title}
-                                            </div>
-                                        ))}
-                                        holla
-                                        {/* <h1>{episodes.title}</h1> */}
-                                    </Modal>
-                                    {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                                    <div id="myModal" role="dialog" className="">
+
+                                    <div id="myModal" role="dialog" className="modal fade">
                                         <div className="modal-dialog">
                                             <div className="modal-content">
                                                 <div className="modal-header">
                                                     <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                                    <h4 className="modal-title">Modal Header</h4>
                                                 </div>
                                                 <div className="modal-body">
-                                                    {item.title}
-                                                    <p>Some text in the modal.</p>
-                                                    <div>{modalItems.title}</div>
+                                                    <div className="test">{this.state.episodes.map((item, index) => (
+                                                        <div key={index}>
+                                                            <p>Saison : {item.season} Episode : {item.episode} {item} <button type="button" className="btn btn-info">{item.code}</button></p>
+                                                        </div>
+                                                    ))}
+                                                    </div>
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> */}
+                                    </div>
+                                    {/* 
+                                    <Modal show={this.state.show2} onClose={this.showModal2}>
+
+                                        {item.code}{item.title}
+
+
+
+                                    </Modal> */}
 
                                 </div>
 
