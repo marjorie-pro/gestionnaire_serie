@@ -24,10 +24,10 @@ class Friends extends React.Component{
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    friends: data
+                    friends: data.users
 
                 })
-                console.log("Friends " + data);
+                console.log("Friends " + JSON.stringify(data));
             });
     }
 
