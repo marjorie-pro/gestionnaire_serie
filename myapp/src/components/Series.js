@@ -9,7 +9,7 @@ class Series extends React.Component {
             show: false,
             modalItems: [],
             pictures: [],
-            // id: '481'
+
         };
         this.detail = this.detail.bind(this);
     }
@@ -36,7 +36,7 @@ class Series extends React.Component {
             .then(data => {
                 this.setState({
                     modalItems: data.show,
-                    // id: this.state.id
+
                 })
 
             });
@@ -55,7 +55,7 @@ class Series extends React.Component {
                
                 this.setState({
                     pictures: data
-                    // id: this.state.id
+
                 })
                
             });
@@ -92,7 +92,6 @@ class Series extends React.Component {
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
                                         </div>
                                     </div>
-                                    {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
 
                                     <Modal show={this.state.show} onClose={this.showModal}>
                                         <h1>{modalItems.title}</h1>
@@ -103,25 +102,6 @@ class Series extends React.Component {
                                         <p>{modalItems.description}</p>
                                         <button className="btn btn-primary">Archiver la série</button>
                                     </Modal>
-                                    {/* <button type="button" className="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
-                                    <div id="myModal" role="dialog" className="">
-                                        <div className="modal-dialog">
-                                            <div className="modal-content">
-                                                <div className="modal-header">
-                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
-                                                    <h4 className="modal-title">Modal Header</h4>
-                                                </div>
-                                                <div className="modal-body">
-                                                    {item.title}
-                                                    <p>Some text in the modal.</p>
-                                                    <div>{modalItems.title}</div>
-                                                </div>
-                                                <div className="modal-footer">
-                                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> */}
 
                                 </div>
 

@@ -7,18 +7,21 @@ class Friends extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            token: props.token,
             friends: []
+            
         };
-        this.searchFriends = this.searchFriends.bind(this)
+        this.searchFriend = this.searchFriend.bind(this)
+        this.addFriend = this.addFriend.bind(this)
       }
 
     componentDidMount() { 
 
     }
 
-    searchFriends(event) {
-        event.preventDefault();
-        fetch('https://api.betaseries.com/friends/find?key=f10eeafae2e6&token=94a283377170&type=emails&emails=marjorie.pezeron@numericable.fr', {
+    searchFriend(event) {
+        event.persist()
+        fetch('https://api.betaseries.com/friends/find?key=f10eeafae2e6&token=' + this.state.token + '&type=emails&emails=' + event.target.value, {
             method: 'get'
         })
             .then(response => response.json())
@@ -27,8 +30,15 @@ class Friends extends React.Component{
                     friends: data.users
 
                 })
-                console.log("Friends " + JSON.stringify(data));
+                console.log("search " + event.target.value);
+                console.log("Friends " + JSON.stringify(data.users));
+                console.log("token is " + this.state.token);
+                
             });
+    }
+
+    addFriend(event) {
+        console.log('button to add friend with id ' + event)
     }
 
     render() {
@@ -40,7 +50,24 @@ class Friends extends React.Component{
                 </ul><br></br>
                 <h2>Ajouter des amis</h2>
                 <label htmlFor="friend">Ajouter un(e) ami(e)</label><br></br>
-                    <input type="text" placeholder="email" id="friend" value={this.friend} onChange={this.searchFriends}></input><br></br><br></br>
+                    <input type="text" placeholder="email" id="friend" value={this.friend} onChange={this.searchFriend}></input><br></br><br></br>
+                    {this.state.friends.map((friend, index) => (
+                            <div key={index} className="">
+                                <div>
+                                    <div className="friends">
+                                        
+                                        <div className="caption">
+                                            <p>{friend.login}</p>
+                                            
+                                            <button className='btn btn-info' onClick={this.addFriend(friend.id)}>Demander en Ami</button>
+                                            
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
             </div>
         );
     }
