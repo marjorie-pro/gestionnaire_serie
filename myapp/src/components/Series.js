@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import Modal from './Modal';
 
@@ -115,12 +113,12 @@ class Series extends React.Component {
     //         });
     // }
 
-    // showModal2 = () => {
-    //     this.setState({
-    //         ...this.state,
-    //         show2: !this.state.show
-    //     });
-    // }
+    showModal2 = () => {
+        this.setState({
+            ...this.state,
+            show2: !this.state.show
+        });
+    }
 
 
     render() {
@@ -149,6 +147,7 @@ class Series extends React.Component {
                                                 data-type="show"
                                                 data-show={item.title}
                                             >Ajouter la série</a>
+
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
                                             {/* <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button> */}
                                             <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal" onClick={() => this.episode(item.id)}>épisodes</button>
@@ -173,10 +172,38 @@ class Series extends React.Component {
                                                     <button type="button" className="close" data-dismiss="modal">&times;</button>
                                                 </div>
                                                 <div className="modal-body">
-                                                    <div className="test">{this.state.episodes.map((item, index) => (
+                                                    <div className="test">{this.state.episodes.map((it, index) => (
                                                         <div key={index}>
-                                                            <p>Saison : {item.season} Episode : {item.episode} {item} <button type="button" className="btn btn-info">{item.code}</button></p>
+                                                            <p>Saison : {it.season} Episode : {it.episode} {it.id}</p>
+                                                            {/* <button type="button" value={it.id} className="btn btn-info" onClick={() => this.showModal2(it.id)}>{it.code}</button> */}
+
+                                                            {/* <p>{it.title}</p>
+                                                            <p>Date de diffusion : {it.date}</p>
+                                                            <p><i className="fas fa-star"></i> Note : {it.note.mean.toLocaleString(undefined, { maximumFractionDigits: 1 })}</p>
+                                                            <img className="img_series" src={it.resource_url} alt="visuel épisode"></img> */}
+                                                            {/* <Modal show={this.state.show2} onClose={this.showModal2}>
+
+                                                                {it.code} {it.title}
+
+                                                            </Modal> */}
+                                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal2">{it.code}</button>
+                                                            <div id="myModal2" role="dialog" className="modal fade">
+                                                                <div className="modal-dialog">
+                                                                    <div className="modal-content">
+                                                                        <div className="modal-header">
+                                                                            <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                                        </div>
+                                                                        <div className="modal-body">
+                                                                            {it.title}
+                                                                        </div>
+                                                                        <div className="modal-footer">
+                                                                            <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
+
                                                     ))}
                                                     </div>
                                                 </div>
@@ -186,14 +213,9 @@ class Series extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    {/* 
-                                    <Modal show={this.state.show2} onClose={this.showModal2}>
-
-                                        {item.code}{item.title}
 
 
 
-                                    </Modal> */}
 
                                 </div>
 
@@ -209,4 +231,3 @@ class Series extends React.Component {
     }
 }
 export default Series;
-
