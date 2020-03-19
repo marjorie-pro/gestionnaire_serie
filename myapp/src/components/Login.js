@@ -46,11 +46,15 @@ class Login extends React.Component {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    token: data.token
-
+                    token: data.token,
+                    id: data.user.id
+                    
                 })
-                
-                this.props.parentCallBack(data.token)
+                console.log("id send " + JSON.stringify(data.user.id))
+                console.log("token send " + JSON.stringify(data.token))
+
+                this.props.parentCallBackToken(data.token)
+                this.props.parentCallBackId(data.user.id)
             });
     }
 
