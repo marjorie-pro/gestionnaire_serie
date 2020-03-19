@@ -11,8 +11,9 @@ class Series extends React.Component {
             pictures: [],
             episodes: [],
             show2: false,
+            picturesEpisode: [],
+            episodesDetail: []
             // saisons: [],
-            // episodesDetail: []
             // id: '481'
         };
         this.detail = this.detail.bind(this);
@@ -26,9 +27,9 @@ class Series extends React.Component {
             .then(data => {
                 this.setState({
                     items: data.shows,
-                    id: this.state.id
+
                 })
-                console.log(data.shows);
+                //console.log(data.shows);
             });
     }
 
@@ -80,24 +81,38 @@ class Series extends React.Component {
                     episodes: data.episodes
                     // id: this.state.id
                 })
-                console.log(data);
+                //console.log(data);
             });
     }
 
-    // episodeDetail(id) {
-    //     fetch(' https://api.betaseries.com/shows/episodes?key=f10eeafae2e6&id=' + id, {
-    //         method: 'get'
-    //     })
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             this.setState({
-    //                 episodes: data.episodes
+    pictureEpisode(id) {
+        fetch('https://api.betaseries.com/pictures/episodes?key=f10eeafae2e6&id=' + id, {
+            method: 'get'
+        })
+            .then(data => {
+                this.setState({
+                    picturesEpisode: data
+                })
+                //console.log(data);
+            });
+        this.episodeDetail(id);
+    }
 
-    //             })
-    //             console.log(data);
-    //         });
+    episodeDetail(id) {
+        fetch(' https://api.betaseries.com/episodes/display?key=f10eeafae2e6&id=' + id, {
+            method: 'get'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    episodesDetail: data.episode
 
-    // }
+                })
+                console.log(data);
+            });
+        // this.showModal2();
+
+    }
 
     // saison(id) {
     //     fetch(' https://api.betaseries.com/shows/seasons?key=f10eeafae2e6&id=' + id, {
@@ -124,6 +139,8 @@ class Series extends React.Component {
     render() {
         const modalItems = this.state.modalItems;
         const pictures = this.state.pictures;
+        const picturesEpisode = this.state.picturesEpisode;
+        const episodesDetail = this.state.episodesDetail;
         return (
             <div>
                 <div className="container">
@@ -174,19 +191,8 @@ class Series extends React.Component {
                                                 <div className="modal-body">
                                                     <div className="test">{this.state.episodes.map((it, index) => (
                                                         <div key={index}>
-                                                            <p>Saison : {it.season} Episode : {it.episode} {it.id}</p>
-                                                            {/* <button type="button" value={it.id} className="btn btn-info" onClick={() => this.showModal2(it.id)}>{it.code}</button> */}
+                                                            <p>Saison : {it.season} Episode : {it.episode} <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal2" onClick={() => this.pictureEpisode(it.id)}>{it.code}</button></p>
 
-                                                            {/* <p>{it.title}</p>
-                                                            <p>Date de diffusion : {it.date}</p>
-                                                            <p><i className="fas fa-star"></i> Note : {it.note.mean.toLocaleString(undefined, { maximumFractionDigits: 1 })}</p>
-                                                            <img className="img_series" src={it.resource_url} alt="visuel épisode"></img> */}
-                                                            {/* <Modal show={this.state.show2} onClose={this.showModal2}>
-
-                                                                {it.code} {it.title}
-
-                                                            </Modal> */}
-                                                            <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal2">{it.code}</button>
                                                             <div id="myModal2" role="dialog" className="modal fade">
                                                                 <div className="modal-dialog">
                                                                     <div className="modal-content">
@@ -194,7 +200,10 @@ class Series extends React.Component {
                                                                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                                                                         </div>
                                                                         <div className="modal-body">
-                                                                            {it.title}
+                                                                            <p>{episodesDetail.title}</p>
+                                                                            <p>Date de diffusion : {it.date}</p>
+                                                                            <p><i className="fas fa-star"></i> Note : {it.note.mean.toLocaleString(undefined, { maximumFractionDigits: 1 })}</p>
+                                                                            <img className="img_episode" src={picturesEpisode.url} alt="visuel épisode"></img>
                                                                         </div>
                                                                         <div className="modal-footer">
                                                                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
@@ -202,6 +211,8 @@ class Series extends React.Component {
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+
                                                         </div>
 
                                                     ))}
