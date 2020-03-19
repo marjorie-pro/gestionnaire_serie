@@ -1,41 +1,22 @@
 import React from 'react';
-// import { Alert } from 'react-bootstrap';
-// import { AlertHeading } from 'react-bootstrap/Alert';
 
-class Login extends React.Component{
+class Login extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          items: [],
-          pictures: [],
-          login: "",
-          password: "",
-          token: ""
+            items: [],
+            pictures: [],
+            login: "",
+            password: "",
+            token: null
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChangeLogin = this.handleChangeLogin.bind(this);
         this.handleChangePassword = this.handleChangePassword.bind(this);
+    }
 
-      }
-
-    componentDidMount() { 
-
-    //     var md5 = require('md5');
- 
-    //     console.log(md5('marjorie'));
-    
-    //     fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login={login}&password={password}',{
-    //       method:'get'
-          
-    //     })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         this.setState({
-    //             items: data.shows
-    //         })
-            
-    //     });
+    componentDidMount() {
     }
 
     handleChangeLogin(event) {
@@ -43,9 +24,10 @@ class Login extends React.Component{
         this.setState({
             login: event.target.value
         });
+        console.log("password is " + this.state.password)
     }
     handleChangePassword(event) {
-        
+
         this.setState({
             password: event.target.value
         });
@@ -59,33 +41,34 @@ class Login extends React.Component{
 
         console.log(myPassword);
 
-        fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login=' +this.state.login+'&password=' + myPassword,{
-            method:'post'
-            
-          })
-          .then(response => response.json())
-          .then(data => {
-              this.setState({
-                  token: data.token
-              })
-              console.log(this.state.token);
-          });
-      }
+        fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login=' + this.state.login + '&password=' + myPassword, {
+            method: 'post'
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    token: data.token
+
+                })
+                console.log(this.state.token);
+                this.props.parentCallBack(data.token)
+            });
+    }
 
     render() {
         return (
             <div>
                 <div>
-                <h2>Login</h2>
+                    <h2>Se connecter</h2>
 
                     <form onSubmit={this.handleSubmit}>
-                    <label for="login">Login</label><br></br>
-                    <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
-                    <label for="password">password</label><br></br>
-                    <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
-                    <input type="submit"></input><br></br>
-                    <a href="https://www.betaseries.com/">Don't have any account yet motha fucker ?</a>
-                    </form> 
+                        <label htmlFor="login">Identifiant</label><br></br>
+                        <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
+                        <label htmlFor="password">Mot de Passe</label><br></br>
+                        <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
+                        <input type="submit"></input><br></br>
+                        <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
+                    </form>
 
                 </div>
             </div>
