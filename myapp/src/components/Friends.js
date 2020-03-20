@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import { AlertHeading } from 'react-bootstrap/Alert';
+import React from 'react';
+// import { Alert } from 'react-bootstrap';
+// import { AlertHeading } from 'react-bootstrap/Alert';
 
 class Friends extends React.Component{
 
@@ -9,13 +9,15 @@ class Friends extends React.Component{
         this.state = {
             token: props.token,
             myId: props.myId,
-            friends: [],
+            friendsList: [],
+            friendRequest: [],
+            friendSearch: [],
             friendEmail: "",
             email: ""
             
         };
         this.searchFriend = this.searchFriend.bind(this)
-        this.addFriend = this.addFriend.bind(this)
+        // this.addFriend = this.addFriend.bind(this)
       }
 
     componentDidMount() { 
@@ -24,12 +26,53 @@ class Friends extends React.Component{
         })
         .then(response => response.json())
         .then(data => {
-            console.log("Friend list response is " + JSON.stringify(data))
+            
+            // console.log("Friend list response is " + JSON.stringify(data))
+            this.setState({
+                friendsList: data.users
+            })
         });
+
+        fetch('https://api.betaseries.com/friends/requests?key=f10eeafae2e6&token=' + this.state.token + '&received=true', {
+            method: 'get'
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            // console.log("Friend request is " + JSON.stringify(data.users[0].login))
+            this.setState({
+                friendRequest: data.users
+            })
+        });
+
     }
 
-    // add friend
-    // https://api.betaseries.com/friends/friend?key=f10eeafae2e6&token=99525d85c572&id=1298066&emails=marjorie.pezeron@numericable.fr
+    componentDidUpdate() { 
+        fetch('https://api.betaseries.com/friends/list?key=f10eeafae2e6&token=' + this.state.token + '&id=' + this.state.myId, {
+            method: 'get'
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            // console.log("Friend list response is " + JSON.stringify(data))
+            this.setState({
+                friendsList: data.users
+            })
+        });
+
+        fetch('https://api.betaseries.com/friends/requests?key=f10eeafae2e6&token=' + this.state.token + '&received=true', {
+            method: 'get'
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            // console.log("Friend request is " + JSON.stringify(data.users[0].login))
+            this.setState({
+                friendRequest: data.users
+            })
+        });
+
+    }
 
     //list des amis GET
     // https://api.betaseries.com/friends/list?key=f10eeafae2e6&token=[YOUR TOKEN]&id=[MY ID]
@@ -54,40 +97,62 @@ class Friends extends React.Component{
         .then(response => response.json())
         .then(data => {
             this.setState({
-                friends: data.users
+                friendSearch: data.users
                 // friendEmail: 
 
             })
             console.log("searchFriend data results are " + JSON.stringify(data))
 
-            console.log("searchFriend email results are " + JSON.stringify(data.users[0].name))
+            // console.log("searchFriend email results are " + JSON.stringify(data.users[0].name))
         });
     }
 
-    addFriend(event) {
-
-        console.log("button to add friend with id " + event)
+    addFriend(e) {
+        // e.preventDefault();
+        console.log("button to add friend with id " + e)
        
-        fetch('https://api.betaseries.com/friends/friend?key=f10eeafae2e6&token=' + this.state.token + '&id=' + event +  '&emails=' + this.state.friendEmail, {
+        fetch('https://api.betaseries.com/friends/friend?key=f10eeafae2e6&token=' + this.state.token + '&id=' + e, {
             method: 'post'
         })
         .then(response => response.json())
         .then(data => {
-            console.log("addFriend response is " + data)
+            console.log("addFriend response is " + JSON.stringify(data))
+            this.setState({
+                friendsList: []
+            })
         });
+    }
+
+    approveFriend(event) {
+        console.log("Button approve friend pushed with id " + event)
+        this.addFriend(event)
+    }
+
+    deleteFriend(event) {
+        console.log("button delete friend with id " + event)
+        fetch('https://api.betaseries.com/friends/friend?key=f10eeafae2e6&token=' +this.state.token + '&id=' + event, {
+            method: 'delete'
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("deleteFriend response " + JSON.stringify(data))
+            this.setState({
+                friendsList: []
+            })
+        });
+
+        
+    }
+
+    blockFriend(event) {
+        console.log("button block friend with id " + event)
     }
 
     render() {
         return (
             <div>
                 <h2>Votre liste d'amis</h2>
-                <ul>
-                    <li>list friends here</li>
-                </ul><br></br>
-                <h2>Ajouter des amis</h2>
-                <label htmlFor="friend">Ajouter un(e) ami(e)</label><br></br>
-                    <input type="text" placeholder="email" id="friend" value={this.friend} onChange={this.searchFriend}></input><br></br><br></br>
-                    {this.state.friends.map((friend, index) => (
+                {this.state.friendsList.map((friend, index) => (
                             <div key={index} className="">
                                 <div>
                                     <div className="friends">
@@ -95,7 +160,45 @@ class Friends extends React.Component{
                                         <div className="caption">
                                             <p>{friend.login}</p>
                                             
-                                            <button className='btn btn-info' onClick={this.addFriend(friend.id)} >Demander en Ami</button>
+                                            <button className='btn btn-warning' onClick={this.deleteFriend.bind(this, friend.id)} >Supprimer</button>
+                                            <button className='btn btn-danger' onClick={this.blockFriend.bind(this, friend.id)} >Bloquer</button>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
+                <h2>Demande d'ami</h2>
+                {this.state.friendRequest.map((friend, index) => (
+                            <div key={index} className="">
+                                <div>
+                                    <div className="friends">
+                                        
+                                        <div className="caption">
+                                            <p>{friend.login}</p>
+                                            
+                                            <button className='btn btn-success' onClick={this.approveFriend.bind(this, friend.id)} >Accepter</button>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        ))}
+
+                <h2>Ajouter des amis</h2>
+                <label htmlFor="friend">Ajouter un(e) ami(e)</label><br></br>
+                    <input type="text" placeholder="email" id="friend" value={this.friend} onChange={this.searchFriend}></input><br></br><br></br>
+                    {this.state.friendSearch.map((friend, index) => (
+                            <div key={index} className="">
+                                <div>
+                                    <div className="friends">
+                                        
+                                        <div className="caption">
+                                            <p>{friend.login}</p>
+                                            
+                                            <button className='btn btn-info' onClick={this.addFriend.bind(this, friend.id)} >Demander en Ami</button>
                                                 
                                         </div>
                                     </div>

@@ -110,12 +110,3 @@ function Homepage() {
     </div>
   );
 }
-
-
-function Amis() {
-  return (
-    <div>
-      <h2>Amis</h2>
-    </div>
-  );
-}
