@@ -1,24 +1,25 @@
 import React from 'react';
-import Modal from './Modal';
+// import Modal from './Modal';
 
 class Series extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             items: [],
-            show: false,
+            // show: false,
             modalItems: [],
             pictures: [],
             episodes: [],
             show2: false,
             picturesEpisode: [],
             episodesDetail: [],
-            token: props.token
+            token: props.token,
+            comment: ""
             // saisons: [],
             // id: '481'
         };
-        this.detail = this.detail.bind(this);
-        this.archiveSerie = this.archiveSerie.bind(this);
+        //this.detail = this.detail.bind(this);
+        //this.archiveSerie = this.archiveSerie.bind(this);
     }
 
     componentDidMount() {
@@ -63,15 +64,15 @@ class Series extends React.Component {
                 })
                 //console.log(data.url);
             });
-        this.showModal();
+        // this.showModal();
     }
 
-    showModal = () => {
-        this.setState({
-            ...this.state,
-            show: !this.state.show
-        });
-    }
+    // showModal = () => {
+    //     this.setState({
+    //         ...this.state,
+    //         show: !this.state.show
+    //     });
+    // }
 
     episode(id) {
         fetch(' https://api.betaseries.com/shows/episodes?key=f10eeafae2e6&id=' + id, {
@@ -130,6 +131,7 @@ class Series extends React.Component {
         })
             .then((result) => {
                 result.json().then((resp) => {
+                    alert("Série ajoutée au compte.")
                     //console.log("resp", resp)
                 })
             })
@@ -145,12 +147,32 @@ class Series extends React.Component {
             .then((result) => {
                 result.json()
                     .then((resp) => {
+                        alert("Série archivée.")
                         console.log("resp", resp)
                     })
             })
 
     }
 
+    vuEpisode(id) {
+        let dataEpisode = this.state;
+        fetch('https://api.betaseries.com/episodes/watched?key=f10eeafae2e6&access_token=' + this.state.token + '&id=' + id, {
+            method: 'post',
+            body: JSON.stringify(dataEpisode)
+        })
+            .then((result) => {
+                result.json()
+                    .then((resp) => {
+                        alert("Episode marqué comme vu.")
+                        console.log("resp", resp)
+                    })
+            })
+
+    }
+
+    submit() {
+        console.log(this.state)
+    }
     // saison(id) {
     //     fetch(' https://api.betaseries.com/shows/seasons?key=f10eeafae2e6&id=' + id, {
     //         method: 'get'
@@ -193,22 +215,48 @@ class Series extends React.Component {
                                             <script src="https://www.betaseries.com/js/button.js" async></script>
                                             <button onClick={() => this.addSerie(item.id)} className="btn btn-primary">Ajouter la série</button>
 
-                                            <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
+
                                             {/* <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button> */}
                                             <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal" onClick={() => this.episode(item.id)}>épisodes</button>
                                         </div>
                                     </div>
                                     {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
 
-                                    <Modal show={this.state.show} onClose={this.showModal}>
+                                    {/* <Modal show={this.state.show} onClose={this.showModal}>
                                         <h1>{modalItems.title}</h1>
                                         <img className="img_serie" src={pictures.url} alt="détail séries"></img>
                                         <p>Saison(s) : {modalItems.seasons}</p>
                                         <p>Episode(s) : {modalItems.episodes}</p>
                                         <p>Durée d'un épisode : {modalItems.length} min</p>
                                         <p>{modalItems.description}</p>
-                                        <button onClick={() => this.archiveSerie(item.id)} className="btn btn-primary">Archiver la série</button>
-                                    </Modal>
+                                    <button onClick={() => this.archiveSerie(item.id)} className="btn btn-primary">Archiver la série</button>
+                                    </Modal> */}
+
+                                    <button type="button" className='btn btn-info' data-toggle="modal" data-target="#myModalDetail" onClick={() => this.detail(item.id)}>detail série</button>
+                                    <div id="myModalDetail" role="dialog" className="modal fade">
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <button type="button" className="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <h1>{modalItems.title}</h1>
+                                                    <img className="img_serie" src={pictures.url} alt="détail séries"></img>
+                                                    <p>Saison(s) : {modalItems.seasons}</p>
+                                                    <p>Episode(s) : {modalItems.episodes}</p>
+                                                    <p>Durée d'un épisode : {modalItems.length} min</p>
+                                                    <p>{modalItems.description}</p>
+                                                    <button onClick={() => this.archiveSerie(modalItems.id)} className="btn btn-primary">Archiver la série</button>
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
 
                                     <div id="myModal" role="dialog" className="modal fade">
                                         <div className="modal-dialog">
@@ -228,10 +276,19 @@ class Series extends React.Component {
                                                                             <button type="button" className="close" data-dismiss="modal">&times;</button>
                                                                         </div>
                                                                         <div className="modal-body">
+                                                                            <script src="https://www.betaseries.com/js/button.js" async></script>
+                                                                            <button onClick={() => this.vuEpisode(it.id)} className="btn btn-primary"
+                                                                                data-type="episode"
+                                                                                data-show={item.title}
+                                                                                data-season={it.season}
+                                                                                data-episode={it.episode}
+                                                                            >Marquer l'épisode comme vu sur BetaSeries</button>
                                                                             <p>{episodesDetail.title}</p>
                                                                             <p>Date de diffusion : {it.date}</p>
                                                                             <p><i className="fas fa-star"></i> Note : {it.note.mean.toLocaleString(undefined, { maximumFractionDigits: 1 })}</p>
-                                                                            <img className="img_episode" src={picturesEpisode.url} alt="visuel épisode"></img>
+                                                                            <img className="img_episode" src={picturesEpisode.url} alt="visuel épisode"></img><br></br>
+                                                                            <input type="text" value={this.state.comment} name="comment" onChange={(data) => { this.setState({ comment: data.target.value }) }}></input><br></br>
+                                                                            <button onClick={() => { this.submit() }}>Envoyer</button>
                                                                         </div>
                                                                         <div className="modal-footer">
                                                                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
