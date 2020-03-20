@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-class Modal extends React.Component {
+class Modal extends Component {
     onClose = (e) => {
         this.props.onClose && this.props.onClose(e);
     }
     render() {
-        if (!this.props.show) {
+        if (!this.props.show2) {
             return null;
         }
         return (
@@ -15,7 +15,6 @@ class Modal extends React.Component {
                     <form className="modal-content">
                         <button className="btn btn-primary float-right" onClick={(e) => { this.onClose(e) }}>close</button>
                         <div className="container">
-
                             <div>{this.props.children}</div>
                         </div>
                     </form>

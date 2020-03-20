@@ -71,7 +71,7 @@ class Navbar extends Component {
             </Route>
             <Route path="/series">
               {isLoggedIn ?
-                <Series /> :
+                <Series token={this.state.token} /> :
                 <Redirect to='/login' />
               }
 
