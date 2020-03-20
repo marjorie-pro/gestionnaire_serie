@@ -25,25 +25,3 @@ class Modal extends Component {
     }
 }
 export default Modal;
-
-
-// import React from 'react';
-
-
-
-// class Modal extends React.Component {
-
-
-
-//     render() {
-//         return (
-//             <div>
-//                 test...
-//                 <p>{this.props.children}</p>
-
-
-//             </div>
-//         );
-//     }
-// }
-// export default Modal;

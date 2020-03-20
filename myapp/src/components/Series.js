@@ -18,6 +18,7 @@ class Series extends React.Component {
             // id: '481'
         };
         this.detail = this.detail.bind(this);
+        this.archiveSerie = this.archiveSerie.bind(this);
     }
 
     componentDidMount() {
@@ -129,11 +130,27 @@ class Series extends React.Component {
         })
             .then((result) => {
                 result.json().then((resp) => {
-                    console.log("resp", resp)
+                    //console.log("resp", resp)
                 })
             })
 
     }
+
+    archiveSerie(id) {
+        let dataArchive = this.state;
+        fetch('https://api.betaseries.com/shows/archive?key=f10eeafae2e6&access_token=' + this.state.token + '&id=' + id, {
+            method: 'post',
+            body: JSON.stringify(dataArchive)
+        })
+            .then((result) => {
+                result.json()
+                    .then((resp) => {
+                        console.log("resp", resp)
+                    })
+            })
+
+    }
+
     // saison(id) {
     //     fetch(' https://api.betaseries.com/shows/seasons?key=f10eeafae2e6&id=' + id, {
     //         method: 'get'
@@ -174,11 +191,7 @@ class Series extends React.Component {
                                                 {item.genres.News} {item.genres.Specialinterest} {item.genres.Sport} {item.genres.Suspense} {item.genres.Trip} {item.genres.History}
                                                 {item.genres.Indie} {item.genres.Musicalcomedy} {item.genres.Podcast} {item.genres.War} {item.genres.MartialArts}</p>
                                             <script src="https://www.betaseries.com/js/button.js" async></script>
-                                            <button onClick={() => this.addSerie(item.id)} className="btn btn-primary"
-
-                                            >Ajouter la série</button>
-
-
+                                            <button onClick={() => this.addSerie(item.id)} className="btn btn-primary">Ajouter la série</button>
 
                                             <button className='btn btn-info' onClick={() => this.detail(item.id)}>detail série</button>
                                             {/* <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button> */}
@@ -194,7 +207,7 @@ class Series extends React.Component {
                                         <p>Episode(s) : {modalItems.episodes}</p>
                                         <p>Durée d'un épisode : {modalItems.length} min</p>
                                         <p>{modalItems.description}</p>
-                                        <button className="btn btn-primary">Archiver la série</button>
+                                        <button onClick={() => this.archiveSerie(item.id)} className="btn btn-primary">Archiver la série</button>
                                     </Modal>
 
                                     <div id="myModal" role="dialog" className="modal fade">
