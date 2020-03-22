@@ -17,6 +17,7 @@ class Friends extends React.Component{
             
         };
         this.searchFriend = this.searchFriend.bind(this)
+        this.updateAll = this.updateAll.bind(this)
         // this.addFriend = this.addFriend.bind(this)
       }
 
@@ -44,9 +45,11 @@ class Friends extends React.Component{
                 friendRequest: data.users
             })
         });
-
+        setInterval(this.updateAll, 5000);
     }
-    updateFriendList(){
+
+    updateAll(){
+
         fetch('https://api.betaseries.com/friends/list?key=f10eeafae2e6&token=' + this.state.token + '&id=' + this.state.myId, {
             method: 'get'
         })
@@ -105,7 +108,7 @@ class Friends extends React.Component{
 
             // console.log("searchFriend email results are " + JSON.stringify(data.users[0].name))
         });
-        this.updateFriendList()
+        this.updateAll()
 
     }
 
@@ -124,13 +127,13 @@ class Friends extends React.Component{
             })
         });
 
-        this.updateFriendList()
+        this.updateAll()
     }
 
     approveFriend(event) {
         console.log("Button approve friend pushed with id " + event)
         this.addFriend(event)
-        this.updateFriendList()
+        this.updateAll()
 
     }
 
@@ -146,14 +149,14 @@ class Friends extends React.Component{
                 friendsList: []
             })
         });
-        this.updateFriendList()
+        this.updateAll()
 
         
     }
 
     blockFriend(event) {
         console.log("button block friend with id " + event)
-        this.updateFriendList()
+        this.updateAll()
 
     }
 
