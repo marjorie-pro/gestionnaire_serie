@@ -46,15 +46,14 @@ class Friends extends React.Component{
         });
 
     }
-
-    componentDidUpdate() { 
+    updateFriendList(){
         fetch('https://api.betaseries.com/friends/list?key=f10eeafae2e6&token=' + this.state.token + '&id=' + this.state.myId, {
             method: 'get'
         })
         .then(response => response.json())
         .then(data => {
             
-            // console.log("Friend list response is " + JSON.stringify(data))
+            console.log("Friend list response is " + JSON.stringify(data))
             this.setState({
                 friendsList: data.users
             })
@@ -66,13 +65,14 @@ class Friends extends React.Component{
         .then(response => response.json())
         .then(data => {
             
-            // console.log("Friend request is " + JSON.stringify(data.users[0].login))
+            console.log("Friend request is " + JSON.stringify(data.users.login))
             this.setState({
                 friendRequest: data.users
             })
         });
 
     }
+
 
     //list des amis GET
     // https://api.betaseries.com/friends/list?key=f10eeafae2e6&token=[YOUR TOKEN]&id=[MY ID]
@@ -105,6 +105,8 @@ class Friends extends React.Component{
 
             // console.log("searchFriend email results are " + JSON.stringify(data.users[0].name))
         });
+        this.updateFriendList()
+
     }
 
     addFriend(e) {
@@ -121,11 +123,15 @@ class Friends extends React.Component{
                 friendsList: []
             })
         });
+
+        this.updateFriendList()
     }
 
     approveFriend(event) {
         console.log("Button approve friend pushed with id " + event)
         this.addFriend(event)
+        this.updateFriendList()
+
     }
 
     deleteFriend(event) {
@@ -140,12 +146,15 @@ class Friends extends React.Component{
                 friendsList: []
             })
         });
+        this.updateFriendList()
 
         
     }
 
     blockFriend(event) {
         console.log("button block friend with id " + event)
+        this.updateFriendList()
+
     }
 
     render() {
