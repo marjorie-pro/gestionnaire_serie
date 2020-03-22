@@ -44,10 +44,8 @@ class Series extends React.Component {
             .then(data => {
                 this.setState({
                     modalItems: data.show,
-                    // id: this.state.id
+
                 })
-                //console.log(data);
-                //console.log(data.show.genres.Comedy);
             });
         this.image(id);
     }
@@ -57,12 +55,12 @@ class Series extends React.Component {
             method: 'get'
         })
             .then(data => {
-                //console.log(data);
+
                 this.setState({
                     pictures: data
-                    // id: this.state.id
+
                 })
-                //console.log(data.url);
+
             });
         // this.showModal();
     }
@@ -232,7 +230,6 @@ class Series extends React.Component {
                                             <button type="button" className='btn btn-info' data-toggle="modal" data-target="#myModalDetail" onClick={() => this.detail(item.id)}>detail série</button>
                                         </div>
                                     </div>
-                                    {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
 
                                     {/* <Modal show={this.state.show} onClose={this.showModal}>
                                         <h1>{modalItems.title}</h1>

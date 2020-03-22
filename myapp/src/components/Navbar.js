@@ -4,27 +4,38 @@ import Login from './Login';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Series from './Series'
+import Friends from './Friends'
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLoggedIn: null,
-      token: null
+      token: null,
+      id: null
     }
-    this.callbackFunction = this.callbackFunction.bind(this);
+    this.callbackFunctionToken = this.callbackFunctionToken.bind(this);
+    this.callbackFunctionId = this.callbackFunctionId.bind(this);
+
   }
 
-  callbackFunction = (childData) => {
+  callbackFunctionToken = (childData) => {
     this.setState({
       token: childData,
       isLoggedIn: childData
     })
   }
 
+  callbackFunctionId = (childData) => {
+    this.setState({
+      id: childData,
+      isLoggedIn: childData
+    })
+  }
+
   emptyToken = () => {
     this.setState({
-      token: null,
+      data: null,
       isLoggedIn: null
     })
   }
@@ -62,27 +73,28 @@ class Navbar extends Component {
             <Route exact path="/">
               <Homepage />
             </Route>
+
             <Route path="/login">
               {isLoggedIn ?
                 <Redirect to='/series' /> :
-                <Login parentCallBack={this.callbackFunction} />
+                <Login parentCallBackToken={this.callbackFunctionToken} parentCallBackId={this.callbackFunctionId} />
               }
-
             </Route>
+
             <Route path="/series">
               {isLoggedIn ?
                 <Series token={this.state.token} /> :
                 <Redirect to='/login' />
               }
-
             </Route>
+
             <Route path="/amis">
               {isLoggedIn ?
-                <Amis /> :
+                <Friends token={this.state.token} myId={this.state.id} /> :
                 <Redirect to='/login' />
               }
-
             </Route>
+
           </Switch>
         </div>
       </Router>
@@ -95,15 +107,6 @@ function Homepage() {
   return (
     <div>
       <h2>Homepage</h2>
-    </div>
-  );
-}
-
-
-function Amis() {
-  return (
-    <div>
-      <h2>Amis</h2>
     </div>
   );
 }

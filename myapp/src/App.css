@@ -23,6 +23,14 @@ h3 {
   }
 }
 
+.friends {
+  margin: auto;
+  align-items: center;
+  border: 1px solid grey;
+  padding:2%;
+  width: 50vw
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

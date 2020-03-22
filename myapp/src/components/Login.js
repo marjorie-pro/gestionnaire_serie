@@ -24,7 +24,7 @@ class Login extends React.Component {
         this.setState({
             login: event.target.value
         });
-        console.log("password is " + this.state.password)
+     
     }
     handleChangePassword(event) {
 
@@ -39,19 +39,21 @@ class Login extends React.Component {
 
         var myPassword = md5(this.state.password)
 
-        console.log(myPassword);
-
         fetch('https://api.betaseries.com/members/auth?key=f10eeafae2e6&login=' + this.state.login + '&password=' + myPassword, {
             method: 'post'
         })
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    token: data.token
-
+                    token: data.token,
+                    id: data.user.id
+                    
                 })
-                console.log(this.state.token);
-                this.props.parentCallBack(data.token)
+                console.log("id send " + JSON.stringify(data.user.id))
+                console.log("token send " + JSON.stringify(data.token))
+
+                this.props.parentCallBackToken(data.token)
+                this.props.parentCallBackId(data.user.id)
             });
     }
 
@@ -66,7 +68,7 @@ class Login extends React.Component {
                     <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
                     <label htmlFor="password">Mot de Passe</label><br></br>
                     <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
-                    <input type="submit"></input><br></br>
+                    <input className="btn btn-primary" type="submit"></input><br></br>
                     <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
                     </form> 
 
