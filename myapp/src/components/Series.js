@@ -170,8 +170,19 @@ class Series extends React.Component {
 
     }
 
-    submit() {
-        console.log(this.state)
+    submit(id) {
+        let dataComment = this.state;
+        fetch('https://api.betaseries.com/comments/comment?key=f10eeafae2e6&access_token=' + this.state.token + '&id=' + id + '&type=episode&text=' + this.state.comment, {
+            method: 'post',
+            body: JSON.stringify(dataComment)
+        })
+            .then((result) => {
+                result.json()
+                    .then((resp) => {
+                        alert("Commentaire envoyé.")
+                        console.log("resp", resp)
+                    })
+            })
     }
     // saison(id) {
     //     fetch(' https://api.betaseries.com/shows/seasons?key=f10eeafae2e6&id=' + id, {
@@ -218,6 +229,7 @@ class Series extends React.Component {
 
                                             {/* <button className='btn btn-info' onClick={() => this.episode(item.id)}>épisodes</button> */}
                                             <button type="button" className="btn btn-info" data-toggle="modal" data-target="#myModal" onClick={() => this.episode(item.id)}>épisodes</button>
+                                            <button type="button" className='btn btn-info' data-toggle="modal" data-target="#myModalDetail" onClick={() => this.detail(item.id)}>detail série</button>
                                         </div>
                                     </div>
                                     {/* <button className="btn" value="show modal" onClick={() => this.detail(item.id)}>more</button> */}
@@ -232,7 +244,6 @@ class Series extends React.Component {
                                     <button onClick={() => this.archiveSerie(item.id)} className="btn btn-primary">Archiver la série</button>
                                     </Modal> */}
 
-                                    <button type="button" className='btn btn-info' data-toggle="modal" data-target="#myModalDetail" onClick={() => this.detail(item.id)}>detail série</button>
                                     <div id="myModalDetail" role="dialog" className="modal fade">
                                         <div className="modal-dialog">
                                             <div className="modal-content">
@@ -282,13 +293,13 @@ class Series extends React.Component {
                                                                                 data-show={item.title}
                                                                                 data-season={it.season}
                                                                                 data-episode={it.episode}
-                                                                            >Marquer l'épisode comme vu sur BetaSeries</button>
+                                                                            >Marquer l'épisode comme vu</button>
                                                                             <p>{episodesDetail.title}</p>
                                                                             <p>Date de diffusion : {it.date}</p>
                                                                             <p><i className="fas fa-star"></i> Note : {it.note.mean.toLocaleString(undefined, { maximumFractionDigits: 1 })}</p>
                                                                             <img className="img_episode" src={picturesEpisode.url} alt="visuel épisode"></img><br></br>
-                                                                            <input type="text" value={this.state.comment} name="comment" onChange={(data) => { this.setState({ comment: data.target.value }) }}></input><br></br>
-                                                                            <button onClick={() => { this.submit() }}>Envoyer</button>
+                                                                            <input type="text" value={this.state.comment} name="comment" placeholder="Noter votre commentaire ici" onChange={(data) => { this.setState({ comment: data.target.value }) }}></input><br></br>
+                                                                            <button className="btn btn-primary" onClick={() => { this.submit(it.id) }}>Envoyer</button>
                                                                         </div>
                                                                         <div className="modal-footer">
                                                                             <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
