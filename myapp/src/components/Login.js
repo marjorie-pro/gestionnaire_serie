@@ -67,7 +67,7 @@ class Login extends React.Component {
                     <label htmlFor="login">Identifiant</label><br></br>
                     <input type="text" id="login" value={this.state.login} onChange={this.handleChangeLogin}></input><br></br>
                     <label htmlFor="password">Mot de Passe</label><br></br>
-                    <input type="text" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
+                    <input type="password" id="password" value={this.state.password} onChange={this.handleChangePassword}></input><br></br><br></br>
                     <input className="btn btn-primary" type="submit"></input><br></br>
                     <a href="https://www.betaseries.com/">Don't have any account yet ?</a>
                     </form> 
