@@ -1,7 +1,7 @@
 # gestionnaire_serie
 
 Pour lancer le projet :
-- Entrer dans le dossier en faisant un cd gestionnaire_serie/my_app.
+- Entrer dans le dossier en faisant un cd gestionnaire_serie/myapp.
 - Faire un npm start.
 - Et copier/coller l'url proposé.
 
